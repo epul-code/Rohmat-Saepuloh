@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROHMATFLIX | Portfolio</title>
+    <style>
+        :root {
+            --netflix-red: #E50914;
+            --netflix-black: #141414;
+            --dark-grey: #181818;
+            --card-bg: #2f2f2f;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #000;
+            color: white;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. ICON APK BESAR --- */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #141414;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 3000; transition: 0.5s;
+        }
+
+        .app-icon { text-align: center; cursor: pointer; transition: 0.3s; }
+        .app-icon:hover { transform: scale(1.1); }
+
+        .icon-box {
+            width: 160px; height: 160px; background: black; border-radius: 35px;
+            display: flex; justify-content: center; align-items: center;
+            border: 2px solid #333; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+        }
+
+        /* --- 2. INTRO ANIMATION --- */
+        #intro-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: black; display: none; justify-content: center; align-items: center;
+            z-index: 2999;
+        }
+        .intro-text {
+            color: var(--netflix-red); font-size: 6rem; font-weight: bold;
+            letter-spacing: 10px; animation: zoomOut 1.5s forwards;
+        }
+        @keyframes zoomOut {
+            0% { transform: scale(1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        /* --- 3. MAIN CONTENT (LAYOUT SAMPING) --- */
+        #main-content { display: none; opacity: 0; transition: 1s; }
+
+        .hero {
+            display: flex; align-items: center; justify-content: center;
+            min-height: 90vh; padding: 0 8%; gap: 50px;
+            background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, transparent),
+                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bca1-0746f3208b4a/web/ID-en-20220502-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+            background-size: cover;
+        }
+
+        .hero-text { flex: 1; }
+        .hero-text h1 { font-size: 4.5rem; margin: 0; text-transform: uppercase; line-height: 1; }
+        .meta { margin: 20px 0; color: #46d369; font-weight: bold; font-size: 1.2rem; }
+        .desc { font-size: 1.2rem; line-height: 1.5; color: #eee; margin-bottom: 30px; }
+
+        /* BINGKAI FOTO DI SAMPING */
+        .hero-image-container { flex: 1; display: flex; justify-content: center; }
+        .photo-frame {
+            width: 350px; height: 450px;
+            border: 8px solid rgba(255,255,255,0.1);
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            background: #222;
+        }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* SKILLS */
+        .row { padding: 40px 8%; }
+        .row h2 { border-left: 5px solid var(--netflix-red); padding-left: 15px; margin-bottom: 30px; }
+        
+        .skill-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+            background: #111; padding: 40px; border-radius: 15px;
+        }
+        .progress-bg { background: #333; height: 10px; border-radius: 10px; margin-top: 10px; }
+        .progress-fill { background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; transition: 2s; }
+
+        .card-row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
+        .card { min-width: 280px; background: var(--card-bg); padding: 25px; border-radius: 10px; }
+        .card h3 { color: var(--netflix-red); margin-top: 0; }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 100px; }
+            .photo-frame { width: 280px; height: 350px; }
+            .hero-text h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="app-icon" onclick="openApp()">
+            <div class="icon-box">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg" width="90">
+            </div>
+            <div style="font-size: 20px; font-weight: bold;">Netflix</div>
+        </div>
+    </div>
+
+    <div id="intro-layer">
+        <div class="intro-text">NETFLIX</div>
+    </div>
+
+    <div id="main-content">
+        <section class="hero">
+            <div class="hero-text">
+                <div style="color: var(--netflix-red); font-weight: bold; letter-spacing: 4px; margin-bottom: 10px;">O R I G I N A L</div>
+                <h1>ROHMAT SAEPULOH</h1>
+                <div class="meta">99% Cocok | 2008 | Baleendah</div>
+                <p class="desc">
+                    Saya adalah seorang pelajar yang memiliki minat untuk belajar hal baru, bertanggung jawab, dan mampu bekerja secara mandiri maupun dalam tim.
+                </p>
+                <button style="padding: 15px 40px; background: white; border: none; font-weight: bold; border-radius: 5px; cursor: pointer;" onclick="window.location.href='https://wa.me/6282312847732'">▶️ Play / Hubungi</button>
+            </div>
+
+            <div class="hero-image-container">
+                <div class="photo-frame">
+                    <img src="foto-rohmat.jpg" onerror="this.src='https://via.placeholder.com/350x450/222/white?text=Foto+Rohmat+Disini'" alt="Rohmat Saepuloh">
+                </div>
+            </div>
+        </section>
+
+        <div class="row">
+            <h2>Audio & Subtitles (Bahasa)</h2>
+            <div class="skill-grid">
+                <div>
+                    <div style="display:flex; justify-content:space-between"><span>Bahasa Indonesia</span><span>100%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b1" style="width:0"></div></div>
+                </div>
+                <div>
+                    <div style="display:flex; justify-content:space-between"><span>Bahasa Sunda</span><span>100%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b2" style="width:0"></div></div>
+                </div>
+                <div>
+                    <div style="display:flex; justify-content:space-between"><span>Bahasa Inggris</span><span>45%</span></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b3" style="width:0"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Episodes: Pendidikan & Prestasi</h2>
+            <div class="card-row">
+                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus 2026</p></div>
+                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus 2023</p></div>
+                <div class="card"><h3>ATLIT NASIONAL</h3><p>Tingkat Nasional</p></div>
+                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat Resmi</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openApp() {
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('intro-layer').style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById('intro-layer').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => { 
+                        main.style.opacity = '1';
+                        document.getElementById('b1').style.width = '100%';
+                        document.getElementById('b2').style.width = '100%';
+                        document.getElementById('b3').style.width = '45%';
+                    }, 50);
+                }, 1500);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
