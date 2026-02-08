@@ -17,10 +17,11 @@
             background-color: #000;
             color: white;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Untuk scrolling yang lebih halus */
         }
 
-        /* --- 1. SPLASH SCREEN (DI-PERBESAR) --- */
+        /* --- 1. ICON APK BESAR --- */
         #splash-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #141414;
@@ -28,25 +29,17 @@
             z-index: 3000; transition: 0.5s;
         }
 
-        .app-icon {
-            text-align: center; cursor: pointer; transition: transform 0.2s;
-        }
+        .app-icon { text-align: center; cursor: pointer; transition: 0.3s; }
+        .app-icon:hover { transform: scale(1.1); }
 
-        .app-icon:active { transform: scale(0.9); }
-
-        /* Ukuran Box Icon diperbesar dari 80px ke 150px */
         .icon-box {
-            width: 150px; height: 150px; 
-            background: black; border-radius: 30px;
+            width: 160px; height: 160px; background: black; border-radius: 35px;
             display: flex; justify-content: center; align-items: center;
-            border: 2px solid #333; box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+            border: 2px solid #333; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
             margin-bottom: 15px;
         }
-
-        /* Ukuran Logo N diperbesar */
-        .icon-box img { width: 90px; }
-
-        .app-name { font-size: 20px; font-weight: bold; letter-spacing: 1px; }
+        .icon-box img { width: 90px; } /* Ukuran logo Netflix 'N' */
+        .app-name { font-size: 20px; font-weight: bold; }
 
         /* --- 2. INTRO ANIMATION --- */
         #intro-layer {
@@ -54,89 +47,98 @@
             background: black; display: none; justify-content: center; align-items: center;
             z-index: 2999;
         }
-
         .intro-text {
             color: var(--netflix-red); font-size: 6rem; font-weight: bold;
-            letter-spacing: 8px; animation: zoomOut 1.5s forwards;
+            letter-spacing: 10px; animation: zoomOut 1.5s forwards;
         }
-
         @keyframes zoomOut {
             0% { transform: scale(1); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
+            100% { transform: scale(2); opacity: 0; }
         }
 
-        /* --- 3. MAIN CONTENT --- */
-        #main-content { display: none; opacity: 0; transition: 1s; height: 100vh; overflow-y: auto; }
-
-        nav {
-            padding: 20px 6%; position: fixed; width: 100%; z-index: 100;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            display: flex; align-items: center; box-sizing: border-box;
-        }
+        /* --- 3. MAIN CONTENT (LAYOUT SAMPING) --- */
+        #main-content { display: none; opacity: 0; transition: 1s; }
 
         .hero {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 120px 8% 50px 8%; min-height: 85vh;
-            background: linear-gradient(to bottom, rgba(20,20,20,0.8), var(--netflix-black));
+            display: flex; align-items: center; justify-content: center;
+            min-height: 90vh; padding: 0 8%; gap: 50px;
+            background: linear-gradient(to right, rgba(0,0,0,0.9) 30%, transparent),
+                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bca1-0746f3208b4a/web/ID-en-20220502-popsignuptwoweeks-perspective_alpha_website_large.jpg'); /* Background default Netflix */
+            background-size: cover;
+            background-position: center;
         }
 
-        .hero-text { flex: 1.2; max-width: 650px; }
-        .hero-text h1 { font-size: 4.5rem; margin: 0; line-height: 1; text-transform: uppercase; }
-        .meta { margin: 25px 0; color: #46d369; font-weight: bold; font-size: 1.2rem; }
-        .desc { font-size: 1.3rem; line-height: 1.6; color: #ccc; margin-bottom: 35px; }
+        .hero-text { flex: 1; max-width: 600px; }
+        .hero-text h1 { font-size: 4.5rem; margin: 0; text-transform: uppercase; line-height: 1; }
+        .meta { margin: 20px 0; color: #46d369; font-weight: bold; font-size: 1.2rem; }
+        .desc { font-size: 1.2rem; line-height: 1.5; color: #eee; margin-bottom: 30px; }
 
-        /* FRAME FOTO */
-        .hero-image-frame { flex: 0.8; display: flex; justify-content: flex-end; }
-        .photo-border {
-            width: 380px; height: 500px;
-            border: 10px solid rgba(255,255,255,0.05);
-            border-radius: 25px; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        /* BINGKAI FOTO DI SAMPING */
+        .hero-image-container { flex: 1; display: flex; justify-content: center; }
+        .photo-frame {
+            width: 350px; height: 450px;
+            border: 8px solid rgba(255,255,255,0.1);
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+            background: #222; /* Placeholder warna jika foto belum dimuat */
         }
-        .photo-border img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* SKILLS BARS */
+        /* ROWS & SKILLS */
         .row { padding: 40px 8%; }
-        .row h2 { font-size: 1.8rem; margin-bottom: 25px; border-left: 5px solid var(--netflix-red); padding-left: 15px; }
-        .skill-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;
+        .row h2 { border-left: 5px solid var(--netflix-red); padding-left: 15px; margin-bottom: 30px; font-size: 1.8rem; }
+        
+        .skill-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
             background: #111; padding: 40px; border-radius: 15px;
         }
         .skill-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; font-size: 1.1rem; }
-        .progress-bg { background: #333; height: 12px; border-radius: 10px; }
-        .progress-fill { background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; transition: 2.5s cubic-bezier(0.1, 0, 0.2, 1); }
+        
+        .progress-bg { background: #333; height: 10px; border-radius: 10px; margin-top: 10px; }
+        .progress-fill { 
+            background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; 
+            transition: width 2s ease-in-out; /* Animasi untuk progress bar */
+        }
 
-        /* CARDS */
-        .card-row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; }
-        .card-row::-webkit-scrollbar { display: none; }
+        .card-row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
+        .card-row::-webkit-scrollbar { display: none; } /* Sembunyikan scrollbar */
+        
         .card {
             min-width: 280px; background: var(--card-bg); padding: 25px;
-            border-radius: 10px; transition: 0.4s ease; border-bottom: 5px solid transparent;
+            border-radius: 10px; transition: 0.3s;
+            border-bottom: 4px solid transparent; /* Untuk efek hover */
         }
-        .card:hover { transform: scale(1.05); border-bottom: 5px solid var(--netflix-red); background: #333; }
-        .card h3 { margin: 0 0 12px 0; color: var(--netflix-red); font-size: 1.2rem; }
+        .card:hover { transform: translateY(-10px); background: #3d3d3d; border-bottom-color: var(--netflix-red); }
+        .card h3 { margin: 0 0 10px 0; color: var(--netflix-red); font-size: 1.2rem; }
 
-        footer { padding: 60px 8%; background: #080808; color: #666; text-align: left; border-top: 10px solid #1a1a1a; }
+        footer { padding: 50px 8%; background: #111; color: #888; font-size: 0.9rem; text-align: left; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        footer p { margin: 5px 0; }
 
+        /* Button Play */
         .btn-play {
-            background: white; color: black; border: none; padding: 15px 40px;
-            font-size: 1.2rem; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s;
+            padding: 15px 40px; background: white; border: none; font-weight: bold;
+            border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 1.2rem;
+            display: flex; align-items: center; gap: 10px;
         }
         .btn-play:hover { background: rgba(255,255,255,0.8); }
 
-        @media (max-width: 1024px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding-top: 80px; }
-            .hero-image-frame { justify-content: center; margin-bottom: 50px; }
-            .photo-border { width: 300px; height: 400px; }
-            .hero-text h1 { font-size: 3rem; }
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 100px; padding-left: 4%; padding-right: 4%; }
+            .hero-image-container { justify-content: center; margin-bottom: 40px; }
+            .photo-frame { width: 280px; height: 350px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .row { padding-left: 4%; padding-right: 4%; }
+            .skill-grid, .card-row { padding-left: 0; padding-right: 0; }
         }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
-        <div class="app-icon" onclick="openNetflix()">
+        <div class="app-icon" onclick="openApp()">
             <div class="icon-box">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg" alt="N">
             </div>
@@ -149,96 +151,99 @@
     </div>
 
     <div id="main-content">
-        <nav>
-            <div style="color: var(--netflix-red); font-size: 28px; font-weight: bold; letter-spacing: 1px;">ROHMATFLIX</div>
-        </nav>
-
         <section class="hero">
             <div class="hero-text">
+                <div style="color: var(--netflix-red); font-weight: bold; letter-spacing: 4px; margin-bottom: 10px;">O R I G I N A L</div>
                 <h1>ROHMAT SAEPULOH</h1>
                 <div class="meta">99% Cocok | Lahir: 2008 | Aktif</div>
                 <p class="desc">
-                    Saya adalah seorang pelajar yang memiliki minat untuk belajar hal baru, bertanggung jawab, dan mampu bekerja secara mandiri maupun dalam tim. Berpengalaman sebagai Atlit Nasional.
+                    Saya adalah seorang pelajar yang memiliki minat untuk belajar hal baru, bertanggung jawab, dan mampu bekerja secara mandiri maupun dalam tim.
                 </p>
-                <button class="btn-play" onclick="window.location.href='https://wa.me/6282312847732'">▶️ Play / Hubungi</button>
+                <button class="btn-play" onclick="window.location.href='https://wa.me/6282312847732'">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 2L20 12L4 22V2Z" fill="black"/></svg>
+                    Hubungi Saya
+                </button>
             </div>
 
-            <div class="hero-image-frame">
-                <div class="photo-border">
-                    <img src="9dac1248-fcf8-4209-8a2a-ca3c9a86958e.jpeg" alt="Rohmat Saepuloh">
+            <div class="hero-image-container">
+                <div class="photo-frame">
+                    <img src="foto-rohmat.jpg" onerror="this.onerror=null;this.src='https://via.placeholder.com/350x450/E50914/FFFFFF?text=FOTO+ROHMAT+DISINI'" alt="Rohmat Saepuloh">
                 </div>
             </div>
         </section>
 
         <div class="row">
-            <h2>Audio & Subtitles (Bahasa)</h2>
-            <div class="skill-container">
+            <h2>Audio & Subtitles (Kemampuan Bahasa)</h2>
+            <div class="skill-grid">
                 <div class="skill-box">
                     <div class="skill-info"><span>Bahasa Indonesia (Aktif)</span><span>100%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b1" style="width: 0;"></div></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b1" style="width:0"></div></div>
                 </div>
                 <div class="skill-box">
                     <div class="skill-info"><span>Bahasa Sunda (Aktif)</span><span>100%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b2" style="width: 0;"></div></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b2" style="width:0"></div></div>
                 </div>
                 <div class="skill-box">
                     <div class="skill-info"><span>Bahasa Inggris (Dasar)</span><span>45%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b3" style="width: 0;"></div></div>
+                    <div class="progress-bg"><div class="progress-fill" id="b3" style="width:0"></div></div>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <h2>Episodes: Pendidikan & Pengalaman</h2>
+            <h2>Episodes: Riwayat Pendidikan</h2>
             <div class="card-row">
-                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus Tahun 2026</p></div>
-                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus Tahun 2023</p></div>
-                <div class="card"><h3>SDN ANDIR 02</h3><p>Lulus Tahun 2020</p></div>
-                <div class="card"><h3>ATLIT NASIONAL</h3><p>Pengalaman: Masuk tingkat Nasional</p></div>
-                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat: Juara 1 POPDA</p></div>
+                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus: 2026</p></div>
+                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus: 2023</p></div>
+                <div class="card"><h3>SDN ANDIR 02</h3><p>Lulus: 2020</p></div>
             </div>
         </div>
 
         <div class="row">
-            <h2>More Info: Hobby & Sosial</h2>
+            <h2>Award Winning & Experience</h2>
             <div class="card-row">
-                <div class="card"><h3>Hobby</h3><p>Game, Komik, Musik</p></div>
-                <div class="card"><h3>Instagram</h3><p>@rhmatt.paul</p></div>
-                <div class="card"><h3>Keahlian</h3><p>Kerjasama Tim, Adaptasi Cepat</p></div>
+                <div class="card"><h3>ATLIT NASIONAL</h3><p>Pengalaman: Masuk jajaran tingkat Nasional</p></div>
+                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat: Pertandingan POPDA</p></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <h2>Genre: Hobi & Keahlian</h2>
+            <div class="card-row">
+                <div class="card"><h3>Hobi</h3><p>Bermain game, membaca komik, mendengarkan musik</p></div>
+                <div class="card"><h3>Keahlian</h3><p>Kerjasama tim, mudah akrab</p></div>
+                <div class="card"><h3>Sosial Media</h3><p>Instagram: @rhmatt.paul</p></div>
             </div>
         </div>
 
         <footer>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;">
+            <div class="footer-grid">
                 <div>
-                    <p>Telepon: 082312847732</p>
-                    <p>Instagram: @rhmatt.paul</p>
+                    <p>Nomor Telepon: 082312847732</p>
+                    <p>Instagram: rhmatt.paul</p>
                 </div>
                 <div>
-                    <p>Alamat:</p>
-                    <p>Kp.sukawargi, Kel.andir, Kec.baleendah, Kab.Bandung</p>
+                    <p>Alamat Lengkap:</p>
+                    <p>Kp.sukawargi, Kel.andir, Kec.baleendahl Kab.bandung</p>
                 </div>
             </div>
-            <p style="margin-top:50px; text-align: center; opacity: 0.5;">©️ 2026 ROHMATFLIX | Original Portfolio</p>
+            <p style="margin-top:50px; text-align: center; opacity: 0.5;">©️ 2026 ROHMATFLIX |cv Rohmat </p>
         </footer>
     </div>
 
     <script>
-        function openNetflix() {
-            // Animasi klik icon
+        function openApp() {
             document.getElementById('splash-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('splash-screen').style.display = 'none';
                 document.getElementById('intro-layer').style.display = 'flex';
-                
-                // Animasi Intro Netflix
                 setTimeout(() => {
                     document.getElementById('intro-layer').style.display = 'none';
                     const main = document.getElementById('main-content');
                     main.style.display = 'block';
                     setTimeout(() => { 
-                        main.style.opacity = '1'; 
-                        // Jalankan bar bahasa
+                        main.style.opacity = '1';
+                        // Jalankan animasi bar bahasa
                         document.getElementById('b1').style.width = '100%';
                         document.getElementById('b2').style.width = '100%';
                         document.getElementById('b3').style.width = '45%';
@@ -249,3 +254,4 @@
     </script>
 </body>
 </html>
+```http://googleusercontent.com/generated_image_content/0
