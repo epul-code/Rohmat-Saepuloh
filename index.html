@@ -3,232 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROHMATFLIX | Portfolio Terlengkap</title>
+    <title>ROHMATFLIX | Portfolio</title>
     <style>
         :root {
             --netflix-red: #E50914;
             --netflix-black: #141414;
-            --card-bg: #2f2f2f;
+            --dark-grey: #181818;
+            --light-grey: #a3a3a3;
         }
 
         body, html {
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             background-color: #000;
-            color: white;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- 1. LAYAR ICON APK --- */
+        /* --- STAGE 1: MOBILE SCREEN SIMULATION --- */
         #splash-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #141414;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 3000; transition: 0.5s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
         }
-        .app-icon { text-align: center; cursor: pointer; transition: 0.3s; }
-        .icon-box {
-            width: 150px; height: 150px; background: black; border-radius: 30px;
-            display: flex; justify-content: center; align-items: center;
-            border: 2px solid #333; box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            margin-bottom: 15px;
-        }
-        .icon-box img { width: 90px; }
 
-        /* --- 2. ANIMASI INTRO --- */
-        #intro-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: black; display: none; justify-content: center; align-items: center;
-            z-index: 2999;
+        .phone-mockup {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .intro-text {
-            color: var(--netflix-red); font-size: 5rem; font-weight: bold;
-            letter-spacing: 10px; animation: zoomOut 1.5s forwards;
+
+        .phone-mockup:active { transform: scale(0.9); }
+
+        .netflix-icon {
+            width: 80px;
+            height: 80px;
+            background-color: black;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            border: 1px solid #333;
         }
-        @keyframes zoomOut {
-            0% { transform: scale(1); opacity: 0; }
+
+        .netflix-icon img { width: 50px; }
+        .app-name { color: white; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 5px black; }
+
+        /* --- STAGE 2: LOADING ANIMATION --- */
+        #loading-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1999;
+        }
+
+        .netflix-intro-text {
+            color: var(--netflix-red);
+            font-size: 5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            animation: zoomIn 1.5s forwards;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(0.5); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(1.2); opacity: 0; }
         }
 
-        /* --- 3. KONTEN UTAMA --- */
-        #main-content { display: none; opacity: 0; transition: 1s; }
+        /* --- STAGE 3: PORTFOLIO MAIN CONTENT --- */
+        #main-portfolio {
+            display: none; /* Hidden at start */
+            opacity: 0;
+            transition: opacity 1s;
+        }
 
+        /* Nav & Hero */
         nav {
-            padding: 20px 6%; position: fixed; width: 100%; z-index: 100;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
-            display: flex; align-items: center; box-sizing: border-box;
+            padding: 20px 4%;
+            position: fixed; width: 100%; z-index: 1000; box-sizing: border-box;
         }
+        .logo { color: var(--netflix-red); font-size: 28px; font-weight: bold; text-decoration: none; }
 
         .hero {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 120px 8% 60px 8%; min-height: 90vh;
-            background: linear-gradient(to right, #000 30%, transparent 80%),
-                        url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bca1-0746f3208b4a/web/ID-en-20220502-popsignuptwoweeks-perspective_alpha_website_large.jpg');
-            background-size: cover; background-position: center;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background: linear-gradient(to right, #141414 20%, transparent 80%), url('foto-rohmat.jpg');
+            background-size: cover; background-position: center top;
         }
 
-        .hero-text { flex: 1.2; max-width: 650px; }
-        .hero-text h1 { font-size: 4rem; margin: 0; text-transform: uppercase; line-height: 1; }
-        .meta { margin: 20px 0; color: #46d369; font-weight: bold; font-size: 1.2rem; }
-        .desc { font-size: 1.2rem; line-height: 1.5; color: #eee; margin-bottom: 25px; }
+        .hero-content { max-width: 650px; }
+        .hero-content h1 { font-size: 4.5rem; margin: 0; text-transform: uppercase; line-height: 0.9; color: white; }
+        .match { color: #46d369; font-weight: bold; margin-right: 15px; }
 
-        /* FOTO DI SAMPING */
-        .hero-image-container { flex: 0.8; display: flex; justify-content: flex-end; }
-        .photo-frame {
-            width: 350px; height: 450px;
-            border: 8px solid rgba(255,255,255,0.1);
-            border-radius: 20px; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+        /* Rows */
+        .row { padding: 30px 4%; color: white; }
+        .card-container { display: flex; gap: 12px; overflow-x: auto; padding: 15px 0; }
+        .card-container::-webkit-scrollbar { display: none; }
+        .card {
+            min-width: 250px; background-color: #2f2f2f; border-radius: 4px; padding: 20px;
+            transition: transform 0.3s; cursor: pointer; border-bottom: 4px solid transparent;
         }
-        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .card:hover { transform: scale(1.05); border-bottom: 4px solid var(--netflix-red); }
 
-        /* SECTIONS */
-        .row { padding: 40px 8%; }
-        .row h2 { border-left: 5px solid var(--netflix-red); padding-left: 15px; margin-bottom: 30px; font-size: 1.8rem; }
+        /* Skill Bars */
+        .lang-container { background-color: #181818; padding: 40px 4%; margin: 20px 0; color: white; }
+        .skill-box { margin-bottom: 20px; }
+        .progress-bg { background: #444; height: 12px; border-radius: 10px; margin-top: 8px; }
+        .progress-fill { 
+            background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; 
+        }
         
-        /* SKILL BAR */
-        .skill-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
-            background: #111; padding: 30px; border-radius: 15px;
+        .animate-bar { animation: fillProgress 2.5s ease-in-out forwards; }
+        @keyframes fillProgress { to { width: var(--target); } }
+
+        footer { padding: 50px 4%; color: var(--light-grey); text-align: center; border-top: 8px solid #222; }
+
+        .btn {
+            padding: 12px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none;
+            margin-top: 20px; font-size: 1rem;
         }
-        .progress-bg { background: #333; height: 12px; border-radius: 10px; margin-top: 10px; }
-        .progress-fill { background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; transition: 2.5s; }
-
-        /* CARDS */
-        .card-row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; }
-        .card-row::-webkit-scrollbar { display: none; }
-        .card { min-width: 280px; background: var(--card-bg); padding: 25px; border-radius: 10px; border-bottom: 4px solid transparent; transition: 0.3s; }
-        .card:hover { transform: scale(1.05); border-bottom-color: var(--netflix-red); }
-        .card h3 { color: var(--netflix-red); margin-top: 0; margin-bottom: 10px; font-size: 1.2rem; }
-        .card p { font-size: 0.95rem; line-height: 1.4; color: #ccc; }
-
-        footer { padding: 60px 8%; background: #080808; border-top: 8px solid #222; }
-        .footer-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; color: #888; }
-
-        .btn-red {
-            padding: 15px 35px; background: var(--netflix-red); color: white; border: none;
-            font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 1.1rem;
-        }
+        .btn-white { background: white; color: black; }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
-        <div class="app-icon" onclick="openApp()">
-            <div class="icon-box">
+        <div class="phone-mockup" onclick="startApp()">
+            <div class="netflix-icon">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg" alt="N">
             </div>
-            <div style="font-size: 20px; font-weight: bold;">Netflix</div>
+            <div class="app-name">Netflix</div>
         </div>
     </div>
 
-    <div id="intro-layer"><div class="intro-text">NETFLIX</div></div>
+    <div id="loading-layer">
+        <div class="netflix-intro-text">NETFLIX</div>
+    </div>
 
-    <div id="main-content">
-        <nav><div style="color: var(--netflix-red); font-size: 26px; font-weight: bold;">ROHMATFLIX</div></nav>
+    <div id="main-portfolio">
+        <nav><a href="#" class="logo">ROHMATFLIX</a></nav>
 
         <section class="hero">
-            <div class="hero-text">
-                <div style="color: var(--netflix-red); font-weight: bold; letter-spacing: 4px; margin-bottom: 10px;">ORIGINAL SERIES</div>
-                <h1>ROHMAT SAEPULOH</h1>
-                <div class="meta">99% Cocok | Lahir: 2008 | HP: 082312847732</div>
-                <p class="desc">
-                    <strong>Tentang Diri:</strong><br>
-                    Saya adalah seorang pelajar yang memiliki minat untuk belajar hal baru, bertanggung jawab, dan mampu bekerja secara mandiri maupun dalam tim.
-                </p>
-                <button class="btn-red" onclick="window.location.href='https://wa.me/6282312847732'">▶ Hubungi Sekarang</button>
-            </div>
-
-            <div class="hero-image-container">
-                <div class="photo-frame">
-                    <img src="foto-rohmat.jpg" onerror="this.src='https://via.placeholder.com/350x450/333/fff?text=FOTO+KEMEJA+PUTIH'" alt="Rohmat Saepuloh">
+            <div class="hero-content">
+                <h1 style="color: var(--netflix-red);">ROHMAT</h1>
+                <h1 style="color: white;">SAEPULOH</h1>
+                <div style="margin: 20px 0;">
+                    <span class="match">99% Cocok</span>
+                    <span style="color: white;">2008 | 18+ | 3 Seasons</span>
                 </div>
+                <p style="color: white; font-size: 1.1rem; max-width: 500px; line-height: 1.5;">
+                    Seorang pelajar yang aktif, komunikatif, dan memiliki dedikasi tinggi. 
+                    Berpengalaman sebagai Atlit Nasional dengan semangat belajar yang luar biasa.
+                </p>
+                <button class="btn btn-white" onclick="window.location.href='https://wa.me/6282312847732'">▶ Play / Hubungi</button>
             </div>
         </section>
 
         <div class="row">
-            <h2>Audio & Subtitles (Bahasa)</h2>
-            <div class="skill-grid">
-                <div>
-                    <div style="display:flex; justify-content:space-between"><span>Bahasa Indonesia (Aktif)</span><span>100%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b1" style="width:0"></div></div>
-                </div>
-                <div>
-                    <div style="display:flex; justify-content:space-between"><span>Bahasa Sunda (Aktif)</span><span>100%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b2" style="width:0"></div></div>
-                </div>
-                <div>
-                    <div style="display:flex; justify-content:space-between"><span>Bahasa Inggris (Dasar)</span><span>45%</span></div>
-                    <div class="progress-bg"><div class="progress-fill" id="b3" style="width:0"></div></div>
-                </div>
+            <h2>Riwayat Pendidikan</h2>
+            <div class="card-container">
+                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus 2026</p></div>
+                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus 2023</p></div>
+                <div class="card"><h3>SDN ANDIR 02</h3><p>Lulus 2020</p></div>
             </div>
         </div>
 
         <div class="row">
-            <h2>Episodes: Riwayat Pendidikan</h2>
-            <div class="card-row">
-                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus Tahun 2026</p></div>
-                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus Tahun 2023</p></div>
-                <div class="card"><h3>SDN ANDIR 02</h3><p>Lulus Tahun 2020</p></div>
+            <h2>Sertifikat & Pengalaman</h2>
+            <div class="card-container">
+                <div class="card"><h3>ATLIT NASIONAL</h3><p>Masuk jajaran tingkat Nasional</p></div>
+                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat Pertandingan POPDA</p></div>
+            </div>
+        </div>
+
+        <div class="lang-container">
+            <h2>Kemampuan Bahasa</h2>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Indonesia</span><span>100%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar1" style="--target: 100%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Sunda</span><span>100%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar2" style="--target: 100%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Inggris (Dasar)</span><span>45%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar3" style="--target: 45%;"></div></div>
             </div>
         </div>
 
         <div class="row">
-            <h2>Awards & Achievements</h2>
-            <div class="card-row">
-                <div class="card"><h3>MASUK ATLIT NASIONAL</h3><p>Pengalaman berharga masuk jajaran Atlit Nasional.</p></div>
-                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat Juara 1 Pertandingan POPDA.</p></div>
-                <div class="card"><h3>KERJASAMA TIM</h3><p>Keahlian: Bisa diajak kerjasama dengan baik.</p></div>
-                <div class="card"><h3>MUDAH AKRAB</h3><p>Keahlian: Gampang akrab dengan teman baru dari luar daerah.</p></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <h2>Genre: Hobi & Sosial Media</h2>
-            <div class="card-row">
-                <div class="card"><h3>Hobby</h3><p>Bermain game, Membaca komik, Mendengarkan musik.</p></div>
-                <div class="card"><h3>Instagram</h3><p>Username: @rhmatt.paul</p></div>
+            <h2>Hobby & Keahlian</h2>
+            <div class="card-container">
+                <div class="card"><h3>Gampang Akrab</h3><p>Mudah bergaul</p></div>
+                <div class="card"><h3>Kerjasama Tim</h3><p>Independen & Tim</p></div>
+                <div class="card"><h3>Gaming</h3><p>Hobby</p></div>
+                <div class="card"><h3>Membaca</h3><p>Komik</p></div>
             </div>
         </div>
 
         <footer>
-            <div class="footer-info">
-                <div>
-                    <p><strong>Kontak:</strong></p>
-                    <p>Telepon: 082312847732</p>
-                    <p>Instagram: @rhmatt.paul</p>
-                </div>
-                <div>
-                    <p><strong>Alamat Lengkap:</strong></p>
-                    <p>Kp.sukawargi, Kel.andir, Kec.baleendah, Kab.Bandung</p>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 50px; opacity: 0.5;">© 2026 ROHMAT SAEPULOH | Netflix Style Portfolio</p>
+            <p>Instagram: @rhmatt.paul | HP: 082312847732</p>
+            <p>Kp.sukawargi, Kel.andir, Kec.baleendah, Kab.Bandung</p>
         </footer>
     </div>
 
     <script>
-        function openApp() {
+        function startApp() {
+            // 1. Sembunyikan icon, tampilkan intro
             document.getElementById('splash-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('splash-screen').style.display = 'none';
-                document.getElementById('intro-layer').style.display = 'flex';
+                document.getElementById('loading-layer').style.display = 'flex';
+                
+                // 2. Jalankan intro selama 1.5 detik
                 setTimeout(() => {
-                    document.getElementById('intro-layer').style.display = 'none';
-                    const main = document.getElementById('main-content');
+                    document.getElementById('loading-layer').style.display = 'none';
+                    const main = document.getElementById('main-portfolio');
                     main.style.display = 'block';
-                    setTimeout(() => { 
+                    
+                    // 3. Fade in portofolio
+                    setTimeout(() => {
                         main.style.opacity = '1';
-                        // Jalankan bar animasi
-                        document.getElementById('b1').style.width = '100%';
-                        document.getElementById('b2').style.width = '100%';
-                        document.getElementById('b3').style.width = '45%';
-                    }, 50);
+                        // Jalankan animasi bar bahasa
+                        document.getElementById('bar1').classList.add('animate-bar');
+                        document.getElementById('bar2').classList.add('animate-bar');
+                        document.getElementById('bar3').classList.add('animate-bar');
+                    }, 100);
                 }, 1500);
             }, 500);
         }
     </script>
 </body>
-                </html>
-                
+</html>
