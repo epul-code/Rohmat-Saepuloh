@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROHMATFLIX | Portfolio</title>
+    <style>
+        :root {
+            --netflix-red: #E50914;
+            --netflix-black: #141414;
+            --dark-grey: #181818;
+            --light-grey: #a3a3a3;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- STAGE 1: MOBILE SCREEN SIMULATION --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s;
+        }
+
+        .phone-mockup {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .phone-mockup:active { transform: scale(0.9); }
+
+        .netflix-icon {
+            width: 80px;
+            height: 80px;
+            background-color: black;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        .netflix-icon img { width: 50px; }
+        .app-name { color: white; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 5px black; }
+
+        /* --- STAGE 2: LOADING ANIMATION --- */
+        #loading-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1999;
+        }
+
+        .netflix-intro-text {
+            color: var(--netflix-red);
+            font-size: 5rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            animation: zoomIn 1.5s forwards;
+        }
+
+        @keyframes zoomIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        /* --- STAGE 3: PORTFOLIO MAIN CONTENT --- */
+        #main-portfolio {
+            display: none; /* Hidden at start */
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        /* Nav & Hero */
+        nav {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            padding: 20px 4%;
+            position: fixed; width: 100%; z-index: 1000; box-sizing: border-box;
+        }
+        .logo { color: var(--netflix-red); font-size: 28px; font-weight: bold; text-decoration: none; }
+
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background: linear-gradient(to right, #141414 20%, transparent 80%), url('foto-rohmat.jpg');
+            background-size: cover; background-position: center top;
+        }
+
+        .hero-content { max-width: 650px; }
+        .hero-content h1 { font-size: 4.5rem; margin: 0; text-transform: uppercase; line-height: 0.9; color: white; }
+        .match { color: #46d369; font-weight: bold; margin-right: 15px; }
+
+        /* Rows */
+        .row { padding: 30px 4%; color: white; }
+        .card-container { display: flex; gap: 12px; overflow-x: auto; padding: 15px 0; }
+        .card-container::-webkit-scrollbar { display: none; }
+        .card {
+            min-width: 250px; background-color: #2f2f2f; border-radius: 4px; padding: 20px;
+            transition: transform 0.3s; cursor: pointer; border-bottom: 4px solid transparent;
+        }
+        .card:hover { transform: scale(1.05); border-bottom: 4px solid var(--netflix-red); }
+
+        /* Skill Bars */
+        .lang-container { background-color: #181818; padding: 40px 4%; margin: 20px 0; color: white; }
+        .skill-box { margin-bottom: 20px; }
+        .progress-bg { background: #444; height: 12px; border-radius: 10px; margin-top: 8px; }
+        .progress-fill { 
+            background: var(--netflix-red); height: 100%; border-radius: 10px; width: 0; 
+        }
+        
+        .animate-bar { animation: fillProgress 2.5s ease-in-out forwards; }
+        @keyframes fillProgress { to { width: var(--target); } }
+
+        footer { padding: 50px 4%; color: var(--light-grey); text-align: center; border-top: 8px solid #222; }
+
+        .btn {
+            padding: 12px 30px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none;
+            margin-top: 20px; font-size: 1rem;
+        }
+        .btn-white { background: white; color: black; }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="phone-mockup" onclick="startApp()">
+            <div class="netflix-icon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Netflix_2015_N_logo.svg" alt="N">
+            </div>
+            <div class="app-name">Netflix</div>
+        </div>
+    </div>
+
+    <div id="loading-layer">
+        <div class="netflix-intro-text">NETFLIX</div>
+    </div>
+
+    <div id="main-portfolio">
+        <nav><a href="#" class="logo">ROHMATFLIX</a></nav>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1 style="color: var(--netflix-red);">ROHMAT</h1>
+                <h1 style="color: white;">SAEPULOH</h1>
+                <div style="margin: 20px 0;">
+                    <span class="match">99% Cocok</span>
+                    <span style="color: white;">2008 | 18+ | 3 Seasons</span>
+                </div>
+                <p style="color: white; font-size: 1.1rem; max-width: 500px; line-height: 1.5;">
+                    Seorang pelajar yang aktif, komunikatif, dan memiliki dedikasi tinggi. 
+                    Berpengalaman sebagai Atlit Nasional dengan semangat belajar yang luar biasa.
+                </p>
+                <button class="btn btn-white" onclick="window.location.href='https://wa.me/6282312847732'">▶ Play / Hubungi</button>
+            </div>
+        </section>
+
+        <div class="row">
+            <h2>Riwayat Pendidikan</h2>
+            <div class="card-container">
+                <div class="card"><h3>SMA KP BALEENDAH</h3><p>Lulus 2026</p></div>
+                <div class="card"><h3>SMPN 01 PAMEUNGPEUK</h3><p>Lulus 2023</p></div>
+                <div class="card"><h3>SDN ANDIR 02</h3><p>Lulus 2020</p></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Sertifikat & Pengalaman</h2>
+            <div class="card-container">
+                <div class="card"><h3>ATLIT NASIONAL</h3><p>Masuk jajaran tingkat Nasional</p></div>
+                <div class="card"><h3>JUARA 1 POPDA</h3><p>Sertifikat Pertandingan POPDA</p></div>
+            </div>
+        </div>
+
+        <div class="lang-container">
+            <h2>Kemampuan Bahasa</h2>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Indonesia</span><span>100%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar1" style="--target: 100%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Sunda</span><span>100%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar2" style="--target: 100%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div style="display:flex; justify-content:space-between"><span>Bahasa Inggris (Dasar)</span><span>45%</span></div>
+                <div class="progress-bg"><div class="progress-fill" id="bar3" style="--target: 45%;"></div></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Hobby & Keahlian</h2>
+            <div class="card-container">
+                <div class="card"><h3>Gampang Akrab</h3><p>Mudah bergaul</p></div>
+                <div class="card"><h3>Kerjasama Tim</h3><p>Independen & Tim</p></div>
+                <div class="card"><h3>Gaming</h3><p>Hobby</p></div>
+                <div class="card"><h3>Membaca</h3><p>Komik</p></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Instagram: @rhmatt.paul | HP: 082312847732</p>
+            <p>Kp.sukawargi, Kel.andir, Kec.baleendah, Kab.Bandung</p>
+        </footer>
+    </div>
+
+    <script>
+        function startApp() {
+            // 1. Sembunyikan icon, tampilkan intro
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('loading-layer').style.display = 'flex';
+                
+                // 2. Jalankan intro selama 1.5 detik
+                setTimeout(() => {
+                    document.getElementById('loading-layer').style.display = 'none';
+                    const main = document.getElementById('main-portfolio');
+                    main.style.display = 'block';
+                    
+                    // 3. Fade in portofolio
+                    setTimeout(() => {
+                        main.style.opacity = '1';
+                        // Jalankan animasi bar bahasa
+                        document.getElementById('bar1').classList.add('animate-bar');
+                        document.getElementById('bar2').classList.add('animate-bar');
+                        document.getElementById('bar3').classList.add('animate-bar');
+                    }, 100);
+                }, 1500);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
